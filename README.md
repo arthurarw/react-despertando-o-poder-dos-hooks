@@ -8,12 +8,12 @@ Link do Curso: https://www.treinaweb.com.br/curso/react-despertando-o-poder-dos-
 
 ## Instalação
 
-Clone o projeto e execute com yarn.
+Clone o projeto e execute com pnpm.
 
 ```bash
   cd react-despertando-o-poder-dos-hooks
-  yarn install
-  yarn dev
+  pnpm install
+  pnpm dev
 ```
 
 Só acessar o link: http://localhost:3000/
