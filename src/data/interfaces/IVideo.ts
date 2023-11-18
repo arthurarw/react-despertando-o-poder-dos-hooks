@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 export interface IVideo {
   id: number;
   title: string;
@@ -9,4 +10,11 @@ export interface IVideo {
 export interface IVideoContext {
   selectedVideo: IVideo;
   videoList: IVideo[];
+  state: IVideoContext;
+  dispatch: React.Dispatch<any>;
+}
+
+export interface IAction {
+  type: string;
+  value: IVideo;
 }

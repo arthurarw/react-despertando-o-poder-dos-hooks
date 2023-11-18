@@ -6,10 +6,10 @@ import React, {
   useState,
 } from "react";
 import { TimeService } from "../../../data/services/TimeService";
-import { videoStore } from "../../../data/contexts/VideoContext";
+import { VideoCtx } from "../../../data/contexts/VideoContext";
 
 const VideoPlayer = () => {
-  const { selectedVideo } = useContext(videoStore);
+  const { selectedVideo } = useContext(VideoCtx);
 
   const video = selectedVideo;
   const videoRef = useRef();
