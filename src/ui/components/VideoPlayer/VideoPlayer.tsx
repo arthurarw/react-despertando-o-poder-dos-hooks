@@ -1,4 +1,10 @@
-import React, { ChangeEvent, useEffect, useRef, useState } from "react";
+import React, {
+  ChangeEvent,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 import { TimeService } from "../../../data/services/TimeService";
 import useVideo from "../../../data/hooks/useVideo";
 import { FaPlay, FaPause } from "react-icons/fa";
@@ -11,6 +17,10 @@ const VideoPlayer = () => {
   const progressTimer = useRef();
   const [isPlaying, setIsPlaying] = useState(false);
   const [progress, setProgress] = useState(0);
+  const totalTime = useMemo(
+    () => TimeService.formatTime(Number(video?.duration)),
+    [video],
+  );
 
   useEffect(() => {
     const videoElement = videoRef.current;
@@ -67,7 +77,9 @@ const VideoPlayer = () => {
             <button onClick={isPlaying ? pause : play}>
               {isPlaying ? <FaPause /> : <FaPlay />}
             </button>
-            <span>{TimeService.formatTime(Math.round(progress))}</span>
+            <span>
+              {TimeService.formatTime(Math.round(progress))} / {totalTime}
+            </span>
             <input
               type="range"
               value={progress}
