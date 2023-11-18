@@ -1,19 +1,25 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-import React, { createContext, useReducer } from "react";
+import React, { Dispatch, createContext, useReducer } from "react";
 import { videoInitialState, VideoReducer } from "../reducers/VideoReducer";
+import { VideoAction, VideoState } from "../interfaces/IVideo";
 
-export const VideoCtx = createContext(videoInitialState);
+export const VideoContext = createContext<
+  | {
+      state: VideoState;
+      dispatch: Dispatch<VideoAction>;
+    }
+  | undefined
+>(undefined);
 
 interface IProps {
   children: React.ReactNode;
 }
 
-export const VideoContext = ({ children }: IProps) => {
+export const VideoProvider = ({ children }: IProps) => {
   const [state, dispatch] = useReducer(VideoReducer, videoInitialState);
 
   return (
-    <VideoCtx.Provider value={[state, dispatch] as any}>
+    <VideoContext.Provider value={{ state, dispatch }}>
       {children}
-    </VideoCtx.Provider>
+    </VideoContext.Provider>
   );
 };

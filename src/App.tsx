@@ -1,5 +1,5 @@
 import "./App.css";
-import { VideoContext } from "./data/contexts/VideoContext";
+import { VideoProvider } from "./data/contexts/VideoContext";
 import NewVideoForm from "./ui/components/NewVideoForm/NewVideoForm";
 import VideoList from "./ui/components/VideoList/VideoList";
 import VideoPlayer from "./ui/components/VideoPlayer/VideoPlayer";
@@ -7,11 +7,11 @@ import VideoPlayer from "./ui/components/VideoPlayer/VideoPlayer";
 function App() {
   return (
     <div className="App">
-      <VideoContext>
+      <VideoProvider>
         <NewVideoForm />
         <VideoPlayer />
         <VideoList />
-      </VideoContext>
+      </VideoProvider>
     </div>
   );
 }

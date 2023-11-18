@@ -1,44 +1,16 @@
-import React, {
-  ChangeEvent,
-  useContext,
-  useEffect,
-  useRef,
-  useState,
-} from "react";
+import React, { ChangeEvent, useEffect, useRef, useState } from "react";
 import { TimeService } from "../../../data/services/TimeService";
-import { VideoCtx } from "../../../data/contexts/VideoContext";
+import useVideo from "../../../data/hooks/useVideo";
+import { FaPlay, FaPause } from "react-icons/fa";
 
 const VideoPlayer = () => {
-  const { selectedVideo } = useContext(VideoCtx);
+  const { state } = useVideo();
 
-  const video = selectedVideo;
+  const video = state.selectedVideo;
   const videoRef = useRef();
   const progressTimer = useRef();
   const [isPlaying, setIsPlaying] = useState(false);
   const [progress, setProgress] = useState(0);
-
-  const play = () => {
-    videoRef.current.play();
-    setIsPlaying(true);
-  };
-
-  const pause = () => {
-    videoRef.current.pause();
-    setIsPlaying(false);
-  };
-
-  const onProgress = () => {
-    setProgress(videoRef.current.currentTime);
-  };
-
-  const onChangeProgress = (event: ChangeEvent<HTMLInputElement>) => {
-    setTime(parseInt(event.target.value));
-  };
-
-  const setTime = (time: number) => {
-    videoRef.current.currentTime = time;
-    onProgress();
-  };
 
   useEffect(() => {
     const videoElement = videoRef.current;
@@ -63,25 +35,46 @@ const VideoPlayer = () => {
     }
   }, [isPlaying]);
 
+  const play = () => {
+    videoRef.current.play();
+    setIsPlaying(true);
+  };
+
+  const pause = () => {
+    videoRef.current.pause();
+    setIsPlaying(false);
+  };
+
+  const onProgress = () => {
+    setProgress(videoRef.current.currentTime);
+  };
+
+  const onChangeProgress = (event: ChangeEvent<HTMLInputElement>) => {
+    setTime(Number(event.target.value));
+  };
+
+  const setTime = (time: number) => {
+    videoRef.current.currentTime = time;
+    onProgress();
+  };
+
   return (
     <div className="video-player">
-      <video src={video.url} ref={videoRef} />
-      {video.url && (
+      <video src={video?.url} ref={videoRef} />
+      {video?.url && (
         <>
           <div className="controls">
             <button onClick={isPlaying ? pause : play}>
-              {isPlaying ? "||" : "|>"}
+              {isPlaying ? <FaPause /> : <FaPlay />}
             </button>
-            <span>
-              {TimeService.formatTime(Math.round(progress))} /{" "}
-              {TimeService.formatTime(video.duration)}
-            </span>
+            <span>{TimeService.formatTime(Math.round(progress))}</span>
             <input
               type="range"
+              value={progress}
+              onChange={onChangeProgress}
               min={0}
               max={video.duration}
               step={0.1}
-              onChange={onChangeProgress}
             />
           </div>
           <h2>{video.title}</h2>

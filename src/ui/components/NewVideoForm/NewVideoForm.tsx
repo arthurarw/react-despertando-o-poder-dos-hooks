@@ -1,8 +1,10 @@
 import React, { useState } from "react";
+import useVideo from "../../../data/hooks/useVideo";
 
 const NewVideoForm = () => {
+  const { dispatch } = useVideo();
   const [title, setTitle] = useState("");
-  const [duration, setDuration] = useState("");
+  const [duration, setDuration] = useState("0");
   const [url, setUrl] = useState("");
   const [cover, setCover] = useState("");
 
@@ -12,13 +14,17 @@ const NewVideoForm = () => {
       duration,
       url,
       cover,
+      id: Math.floor(Math.random() * 100),
     };
+
+    dispatch({ type: "ADD_NEW_VIDEO", value: newVideo });
+
     reset();
   };
 
   const reset = () => {
     setTitle("");
-    setDuration("");
+    setDuration("0");
     setUrl("");
     setCover("");
   };

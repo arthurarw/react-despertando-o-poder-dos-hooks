@@ -12,8 +12,8 @@ Clone o projeto e execute com pnpm.
 
 ```bash
   cd react-despertando-o-poder-dos-hooks
-  pnpm install
-  pnpm dev
+  yarn install
+  yarn dev
 ```
 
 Só acessar o link: http://localhost:3000/
